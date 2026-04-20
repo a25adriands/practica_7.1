@@ -1,0 +1,25 @@
+name: Lanzar test automaticamente
+
+on:
+  push:
+  workflow_dispatch:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "12.x"
+
+      - name: instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar tests
+        run: npm test
